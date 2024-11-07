@@ -1,0 +1,55 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.10.35013.160
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{64462301-2C29-4632-8CFC-5F662BAF9A94}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{DD066A13-E177-492C-8403-2AA3C04D19B1}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation", "Presentation", "{25DE6276-2111-42DB-B741-04DB139E1763}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Teledok.Application", "Teledok.Application\Teledok.Application.csproj", "{9A225657-1BF6-40C3-AF5E-30FD0CEC5329}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Teledok.Domain", "Teledok.Domain\Teledok.Domain.csproj", "{5802BB35-F6F7-4403-83B8-F6DC9C83D0EA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Teledok.WebApi", "Teledok.WebApi\Teledok.WebApi.csproj", "{E3AC2B5E-E860-433D-B21F-8391512AB796}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Teledok.Persistence", "Teledok.Persistence\Teledok.Persistence.csproj", "{9473F492-9FCC-4330-B39A-F6876300ACAC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9A225657-1BF6-40C3-AF5E-30FD0CEC5329}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9A225657-1BF6-40C3-AF5E-30FD0CEC5329}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9A225657-1BF6-40C3-AF5E-30FD0CEC5329}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9A225657-1BF6-40C3-AF5E-30FD0CEC5329}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5802BB35-F6F7-4403-83B8-F6DC9C83D0EA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5802BB35-F6F7-4403-83B8-F6DC9C83D0EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5802BB35-F6F7-4403-83B8-F6DC9C83D0EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5802BB35-F6F7-4403-83B8-F6DC9C83D0EA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E3AC2B5E-E860-433D-B21F-8391512AB796}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E3AC2B5E-E860-433D-B21F-8391512AB796}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E3AC2B5E-E860-433D-B21F-8391512AB796}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E3AC2B5E-E860-433D-B21F-8391512AB796}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9473F492-9FCC-4330-B39A-F6876300ACAC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9473F492-9FCC-4330-B39A-F6876300ACAC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9473F492-9FCC-4330-B39A-F6876300ACAC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9473F492-9FCC-4330-B39A-F6876300ACAC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{9A225657-1BF6-40C3-AF5E-30FD0CEC5329} = {64462301-2C29-4632-8CFC-5F662BAF9A94}
+		{5802BB35-F6F7-4403-83B8-F6DC9C83D0EA} = {64462301-2C29-4632-8CFC-5F662BAF9A94}
+		{E3AC2B5E-E860-433D-B21F-8391512AB796} = {25DE6276-2111-42DB-B741-04DB139E1763}
+		{9473F492-9FCC-4330-B39A-F6876300ACAC} = {DD066A13-E177-492C-8403-2AA3C04D19B1}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A7FDA974-C0FD-4E05-B513-1EC26A1C65F2}
+	EndGlobalSection
+EndGlobal
