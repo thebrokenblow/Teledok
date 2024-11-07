@@ -33,6 +33,7 @@ public class RepositoryFounder(TeledokDbContext teledokDbContext) : IRepositoryF
 
     public async Task<Founder> GetDetailsAsync(string iNN, CancellationToken cancellationToken = default) =>
         await teledokDbContext.Founders
+            .Include(founder => founder.Clients)
             .SingleOrDefaultAsync(founder => founder.INN == iNN, cancellationToken)
              ?? throw new NotFoundException(nameof(Founder), iNN);
 
@@ -60,7 +61,7 @@ public class RepositoryFounder(TeledokDbContext teledokDbContext) : IRepositoryF
 
         if (founders.Count != iNNFounders.Count)
         {
-            throw new NotFoundException(nameof(Founder), iNNFounders);
+            throw new NotFoundException($"A certain number of Founders were not found, type: {nameof(List<Founder>)}", iNNFounders);
         }
 
         return founders;

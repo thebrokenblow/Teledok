@@ -23,9 +23,9 @@ public class FounderController(IMediator mediator, IMapper mapper) : ControllerB
             CountTake = countTake
         };
 
-        var vm = await mediator.Send(query);
+        var founderList = await mediator.Send(query);
 
-        return Ok(vm);
+        return Ok(founderList);
     }
 
     [HttpGet("{iNN}")]
@@ -37,8 +37,9 @@ public class FounderController(IMediator mediator, IMapper mapper) : ControllerB
             INN = iNN
         };
 
-        var vm = await mediator.Send(query);
-        return Ok(vm);
+        var founderDetails = await mediator.Send(query);
+
+        return Ok(founderDetails);
     }
 
     [HttpPost]
@@ -46,9 +47,9 @@ public class FounderController(IMediator mediator, IMapper mapper) : ControllerB
     public async Task<ActionResult<string>> Create([FromBody] CreateFounderDto createFounderDto)
     {
         var command = mapper.Map<CreateFounderCommand>(createFounderDto);
-        var founder = await mediator.Send(command);
+        await mediator.Send(command);
 
-        return Ok(founder);
+        return NoContent();
     }
 
     [HttpPut]

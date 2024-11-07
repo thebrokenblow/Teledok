@@ -23,8 +23,9 @@ public class ClientController(IMediator mediator, IMapper mapper) : ControllerBa
             CountTake = countTake
         };
 
-        var vm = await mediator.Send(query);
-        return Ok(vm);
+        var clientList = await mediator.Send(query);
+
+        return Ok(clientList);
     }
 
     [HttpGet("{iNN}")]
@@ -36,8 +37,9 @@ public class ClientController(IMediator mediator, IMapper mapper) : ControllerBa
             INN = iNN
         };
 
-        var vm = await mediator.Send(query);
-        return Ok(vm);
+        var clientDetails = await mediator.Send(query);
+
+        return Ok(clientDetails);
     }
 
     [HttpPost]
@@ -47,7 +49,7 @@ public class ClientController(IMediator mediator, IMapper mapper) : ControllerBa
         var command = mapper.Map<CreateClientCommand>(createClientDto);
         await mediator.Send(command);
 
-        return Ok();
+        return NoContent();
     }
 
     [HttpPut]
@@ -68,7 +70,9 @@ public class ClientController(IMediator mediator, IMapper mapper) : ControllerBa
         {
             INN = iNN,
         };
+
         await mediator.Send(command);
+
         return NoContent();
     }
 }

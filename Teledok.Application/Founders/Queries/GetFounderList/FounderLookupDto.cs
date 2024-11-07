@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using Teledok.Domain;
 using Teledok.Application.Mappings;
-using Teledok.Application.Clients.Queries.GetClientList;
 
 namespace Teledok.Application.Founders.Queries.GetFounderList;
 

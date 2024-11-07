@@ -5,7 +5,6 @@ using System.Reflection;
 using Teledok.Application.Common.Behaviors;
 using Teledok.Application.Mappings;
 
-
 namespace Teledok.Application;
 
 public static class DependencyInjection

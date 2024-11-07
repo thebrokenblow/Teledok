@@ -12,7 +12,7 @@ using Teledok.Persistence;
 namespace Teledok.Persistence.Migrations
 {
     [DbContext(typeof(TeledokDbContext))]
-    [Migration("20240929220338_Init")]
+    [Migration("20241107190715_Init")]
     partial class Init
     {
         /// <inheritdoc />
@@ -28,7 +28,7 @@ namespace Teledok.Persistence.Migrations
             modelBuilder.Entity("ClientFounder", b =>
                 {
                     b.Property<string>("ClientsINN")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(12)");
 
                     b.Property<string>("FoundersINN")
                         .HasColumnType("nvarchar(450)");
@@ -43,7 +43,8 @@ namespace Teledok.Persistence.Migrations
             modelBuilder.Entity("Teledok.Domain.Client", b =>
                 {
                     b.Property<string>("INN")
-                        .HasColumnType("nvarchar(450)");
+                        .HasMaxLength(12)
+                        .HasColumnType("nvarchar(12)");
 
                     b.Property<DateTime>("DateAdd")
                         .HasColumnType("datetime2");

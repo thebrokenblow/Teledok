@@ -15,7 +15,7 @@ namespace Teledok.Persistence.Migrations
                 name: "Clients",
                 columns: table => new
                 {
-                    INN = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    INN = table.Column<string>(type: "nvarchar(12)", maxLength: 12, nullable: false),
                     TitleCompany = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     TypeCompany = table.Column<int>(type: "int", nullable: false),
                     DateAdd = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -46,7 +46,7 @@ namespace Teledok.Persistence.Migrations
                 name: "ClientFounder",
                 columns: table => new
                 {
-                    ClientsINN = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    ClientsINN = table.Column<string>(type: "nvarchar(12)", nullable: false),
                     FoundersINN = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
                 constraints: table =>

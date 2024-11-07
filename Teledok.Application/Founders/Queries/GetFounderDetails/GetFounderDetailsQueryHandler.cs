@@ -9,6 +9,7 @@ public class GetFounderDetailsQueryHandler(IMapper mapper, IRepositoryFounder re
     public async Task<FounderDetailsVM> Handle(GetFounderDetailsQuery request, CancellationToken cancellationToken)
     {
         var founder = await repositoryFounder.GetDetailsAsync(request.INN, cancellationToken);
+
         return mapper.Map<FounderDetailsVM>(founder);
     }
 }

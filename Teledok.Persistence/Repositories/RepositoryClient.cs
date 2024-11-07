@@ -23,7 +23,6 @@ public class RepositoryClient(IRepositoryFounder repositoryFounder, TeledokDbCon
                 TitleCompany = createClientCommand.TitleCompany,
                 TypeCompany = createClientCommand.TypeCompany,
                 DateAdd = DateTime.UtcNow,
-                DateEdit = null,
                 Founders = founders,
             };
 

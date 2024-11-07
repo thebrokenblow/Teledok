@@ -4,9 +4,9 @@ using Teledok.Domain;
 
 namespace Teledok.Application.Founders.Commands.CreateFounder;
 
-public class CreateFounderCommandHandler(IRepositoryFounder repositoryFounder) : IRequestHandler<CreateFounderCommand, string>
+public class CreateFounderCommandHandler(IRepositoryFounder repositoryFounder) : IRequestHandler<CreateFounderCommand>
 {
-    public async Task<string> Handle(CreateFounderCommand request, CancellationToken cancellationToken)
+    public async Task Handle(CreateFounderCommand request, CancellationToken cancellationToken)
     {
         var founder = new Founder
         {
@@ -15,12 +15,8 @@ public class CreateFounderCommandHandler(IRepositoryFounder repositoryFounder) :
             Surname = request.Surname,
             Patronymic = request.Patronymic,
             AddDate = DateTime.UtcNow,
-            EditDate = null,
-            Clients = []
         };
 
         await repositoryFounder.AddAsync(founder, cancellationToken);
-
-        return founder.INN;
     }
 }

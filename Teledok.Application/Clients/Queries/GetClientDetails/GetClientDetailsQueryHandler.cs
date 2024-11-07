@@ -9,6 +9,7 @@ public class GetClientDetailsQueryHandler(IMapper mapper, IRepositoryClient repo
     public async Task<ClientDetailsVM> Handle(GetClientDetailsQuery request, CancellationToken cancellationToken)
     {
         var client = await repositoryClient.GetDetailsAsync(request.INN, cancellationToken);
+
         return mapper.Map<ClientDetailsVM>(client);
     }
 }

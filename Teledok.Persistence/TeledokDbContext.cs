@@ -1,6 +1,6 @@
 ﻿using Teledok.Domain;
 using Microsoft.EntityFrameworkCore;
-using Teledok.Persistence.EntityTypeConfigurations;
+using Teledok.Persistence.Extensions;
 
 namespace Teledok.Persistence;
 
@@ -11,8 +11,7 @@ public class TeledokDbContext(DbContextOptions<TeledokDbContext> options) : DbCo
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.ApplyConfiguration(new ClientConfiguration());
-        modelBuilder.ApplyConfiguration(new FounderConfiguration());
+        modelBuilder.ApplyAllConfigurations();
         base.OnModelCreating(modelBuilder);
     }
 }
