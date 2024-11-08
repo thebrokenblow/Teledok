@@ -17,15 +17,15 @@
 
 4. Для миграции объектов в базу данных необходимо установить вашу строку подключения DbConnection в файле appsettings.json проекта Teledok.WebApi
 
-![appsettings.json](https://github.com/thebrokenblow/OnlineStore/blob/master/photos/appsettings.png)
+![appsettings.json](https://github.com/thebrokenblow/Teledok/blob/master/Photos/appsettings.png?raw=true)
 
 5. Далее необходимо зайти в раздел Tools -> NuGet Package Manager -> Package Manager Console
 
-![Консоль диспетчера пакетов](https://github.com/thebrokenblow/OnlineStore/blob/master/photos/Console1.png)
+![Консоль диспетчера пакетов](https://github.com/thebrokenblow/Teledok/blob/master/Photos/Tools.png?raw=true)
 
 6. В качестве запускаемого проекта надо выбрать Teledok.WebApi а проект по умолчанию (Default project) Teledok.Persistence
 
-![OnlineShop.Persistence](https://github.com/thebrokenblow/OnlineStore/blob/master/photos/Console2.png)
+![OnlineShop.Persistence](https://github.com/thebrokenblow/Teledok/blob/master/Photos/console.png?raw=true)
 
 7. Ввести две команды 
 ```sh
@@ -33,7 +33,7 @@
    Update-Database
 ```
 
-   ![Миграция](https://github.com/thebrokenblow/OnlineStore/blob/master/photos/Migration.png)
+   ![Миграция](https://github.com/thebrokenblow/Teledok/blob/master/Photos/Migration.png?raw=true)
 
 8. Если миграция прошла успешно, то можно запускать проект нажав на F5 или F5 + Fn
 
