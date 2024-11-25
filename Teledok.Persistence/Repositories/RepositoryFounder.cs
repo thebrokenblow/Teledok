@@ -1,8 +1,8 @@
-﻿using Teledok.Domain;
-using Teledok.Application.Repositories.Interfaces;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Teledok.Application.Common.Exceptions;
 using Teledok.Application.Founders.Commands.UpdateFounder;
+using Teledok.Application.Repositories.Interfaces;
+using Teledok.Domain;
 
 namespace Teledok.Persistence.Repositories;
 
@@ -39,18 +39,32 @@ public class RepositoryFounder(TeledokDbContext teledokDbContext) : IRepositoryF
 
     public async Task UpdateAsync(UpdateFounderCommand request, CancellationToken cancellationToken)
     {
-        var founder = 
-            await teledokDbContext
-            .Founders
+        var founder = await teledokDbContext.Founders
             .SingleOrDefaultAsync(x => x.INN == request.INN, cancellationToken)
             ?? throw new NotFoundException(nameof(Founder), request.INN);
 
-        founder.Name = request.Name;
-        founder.Surname = request.Surname;
-        founder.Patronymic = request.Patronymic;
-        founder.EditDate = DateTime.UtcNow;
+        try
+        {
+            founder.Name = request.Name;
+            founder.Surname = request.Surname;
+            founder.Patronymic = request.Patronymic;
+            founder.EditDate = DateTime.UtcNow;
 
-        await teledokDbContext.SaveChangesAsync(cancellationToken);
+            await teledokDbContext.SaveChangesAsync(cancellationToken);
+        }
+        catch (DbUpdateConcurrencyException)
+        {
+            var isFounderExistsAsync = await IsFounderExistsAsync(founder.INN, cancellationToken);
+
+            if (isFounderExistsAsync)
+            {
+                throw new NotFoundException(nameof(Founder), request.INN);
+            }
+            else
+            {
+                throw;
+            }
+        }
     }
 
     public async Task<List<Founder>> GetByInnAsync(List<string> iNNFounders, CancellationToken cancellationToken)
@@ -66,4 +80,7 @@ public class RepositoryFounder(TeledokDbContext teledokDbContext) : IRepositoryF
 
         return founders;
     }
+
+    public async Task<bool> IsFounderExistsAsync(string iNN, CancellationToken cancellationToken) =>
+        await teledokDbContext.Founders.AnyAsync(founder => founder.INN == iNN, cancellationToken);
 }

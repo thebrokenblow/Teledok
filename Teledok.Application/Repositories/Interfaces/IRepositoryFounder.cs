@@ -11,4 +11,5 @@ public interface IRepositoryFounder
     Task<Founder> GetDetailsAsync(string iNN, CancellationToken cancellationToken = default);
     Task<List<Founder>> GetAsync(int countSkip, int countTake, CancellationToken cancellationToken = default);
     Task<List<Founder>> GetByInnAsync(List<string> iNNFounders, CancellationToken cancellationToken = default);
+    Task<bool> IsFounderExistsAsync(string iNN, CancellationToken cancellationToken = default);
 }

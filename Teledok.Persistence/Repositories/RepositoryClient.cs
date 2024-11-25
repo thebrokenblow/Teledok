@@ -1,9 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Teledok.Domain;
+using Teledok.Application.Clients.Commands.CreateClient;
+using Teledok.Application.Clients.Commands.UpdateClient;
 using Teledok.Application.Common.Exceptions;
 using Teledok.Application.Repositories.Interfaces;
-using Teledok.Application.Clients.Commands.UpdateClient;
-using Teledok.Application.Clients.Commands.CreateClient;
+using Teledok.Domain;
 
 namespace Teledok.Persistence.Repositories;
 
@@ -69,10 +69,7 @@ public class RepositoryClient(IRepositoryFounder repositoryFounder, TeledokDbCon
 
         try
         {
-            var client = await teledokDbContext.Clients
-                                        .SingleOrDefaultAsync(
-                                            client => client.INN == updateClientCommand.INN, cancellationToken) ??
-                                                throw new NotFoundException(nameof(Client), updateClientCommand.INN);
+            var client = await GetClientByInnAsync(updateClientCommand.INN, cancellationToken);
 
             var founders = await repositoryFounder.GetByInnAsync(updateClientCommand.INNFounders, cancellationToken);
 
@@ -84,6 +81,15 @@ public class RepositoryClient(IRepositoryFounder repositoryFounder, TeledokDbCon
 
             await teledokDbContext.SaveChangesAsync(cancellationToken);
         }
+        catch (DbUpdateConcurrencyException)
+        {
+            var isClientExistsAsync = await IsClientExistsAsync(updateClientCommand.INN, cancellationToken);
+
+            if (!isClientExistsAsync)
+            {
+                throw new NotFoundException(nameof(Client), updateClientCommand.INN);
+            }
+        }
         catch
         {
             await transaction.RollbackAsync(cancellationToken);
@@ -91,4 +97,12 @@ public class RepositoryClient(IRepositoryFounder repositoryFounder, TeledokDbCon
             throw;
         }
     }
+
+    public async Task<bool> IsClientExistsAsync(string iNN, CancellationToken cancellationToken) =>
+         await teledokDbContext.Clients.AnyAsync(client => client.INN == iNN, cancellationToken);
+
+    public async Task<Client> GetClientByInnAsync(string iNN, CancellationToken cancellationToken) =>
+        await teledokDbContext.Clients.SingleOrDefaultAsync(
+            client => client.INN == iNN, cancellationToken) ??
+        throw new NotFoundException(nameof(Client), iNN);
 }
