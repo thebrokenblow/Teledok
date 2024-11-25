@@ -9,7 +9,7 @@ public interface IRepositoryFounder
     Task DeleteAsync(string iNN, CancellationToken cancellationToken = default);
     Task UpdateAsync(UpdateFounderCommand request, CancellationToken cancellationToken = default);
     Task<Founder> GetDetailsAsync(string iNN, CancellationToken cancellationToken = default);
-    Task<List<Founder>> GetAsync(int countSkip, int countTake, CancellationToken cancellationToken = default);
-    Task<List<Founder>> GetByInnAsync(List<string> iNNFounders, CancellationToken cancellationToken = default);
-    Task<bool> IsFounderExistsAsync(string iNN, CancellationToken cancellationToken = default);
+    Task<List<Founder>> GetRangeAsync(int countSkip, int countTake, CancellationToken cancellationToken = default);
+    Task<List<Founder>> GetFoundersByListInnAsync(List<string> iNNFounders, CancellationToken cancellationToken = default);
+    Task<bool> IsExistsAsync(string iNN, CancellationToken cancellationToken = default);
 }

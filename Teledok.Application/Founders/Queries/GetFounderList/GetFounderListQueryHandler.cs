@@ -9,7 +9,7 @@ public class GetFounderListQueryHandler(IMapper mapper, IRepositoryFounder repos
 {
     public async Task<FounderListVM> Handle(GetFounderListQuery request, CancellationToken cancellationToken)
     {
-        var founders = await repositoryFounder.GetAsync(request.CountSkip, request.CountTake, cancellationToken);
+        var founders = await repositoryFounder.GetRangeAsync(request.CountSkip, request.CountTake, cancellationToken);
         var foundersLookupDto = mapper.Map<List<Founder>, List<FounderLookupDto>>(founders);
 
         return new FounderListVM

@@ -25,7 +25,7 @@ public class RepositoryFounder(TeledokDbContext teledokDbContext) : IRepositoryF
         await teledokDbContext.SaveChangesAsync(cancellationToken);
     }
 
-    public async Task<List<Founder>> GetAsync(int countSkip, int countTake, CancellationToken cancellationToken = default) => 
+    public async Task<List<Founder>> GetRangeAsync(int countSkip, int countTake, CancellationToken cancellationToken = default) => 
         await teledokDbContext.Founders
             .Skip(countSkip)
             .Take(countTake)
@@ -54,7 +54,7 @@ public class RepositoryFounder(TeledokDbContext teledokDbContext) : IRepositoryF
         }
         catch (DbUpdateConcurrencyException)
         {
-            var isFounderExistsAsync = await IsFounderExistsAsync(founder.INN, cancellationToken);
+            var isFounderExistsAsync = await IsExistsAsync(founder.INN, cancellationToken);
 
             if (isFounderExistsAsync)
             {
@@ -67,7 +67,7 @@ public class RepositoryFounder(TeledokDbContext teledokDbContext) : IRepositoryF
         }
     }
 
-    public async Task<List<Founder>> GetByInnAsync(List<string> iNNFounders, CancellationToken cancellationToken)
+    public async Task<List<Founder>> GetFoundersByListInnAsync(List<string> iNNFounders, CancellationToken cancellationToken)
     {
         var founders = await teledokDbContext.Founders
             .Where(founder => iNNFounders.Contains(founder.INN))
@@ -81,6 +81,6 @@ public class RepositoryFounder(TeledokDbContext teledokDbContext) : IRepositoryF
         return founders;
     }
 
-    public async Task<bool> IsFounderExistsAsync(string iNN, CancellationToken cancellationToken) =>
+    public async Task<bool> IsExistsAsync(string iNN, CancellationToken cancellationToken) =>
         await teledokDbContext.Founders.AnyAsync(founder => founder.INN == iNN, cancellationToken);
 }

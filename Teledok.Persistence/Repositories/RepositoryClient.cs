@@ -15,7 +15,7 @@ public class RepositoryClient(IRepositoryFounder repositoryFounder, TeledokDbCon
 
         try
         {
-            var founders = await repositoryFounder.GetByInnAsync(createClientCommand.INNFounders, cancellationToken);
+            var founders = await repositoryFounder.GetFoundersByListInnAsync(createClientCommand.INNFounders, cancellationToken);
 
             var client = new Client
             {
@@ -57,7 +57,7 @@ public class RepositoryClient(IRepositoryFounder repositoryFounder, TeledokDbCon
         return client;
     }
 
-    public Task<List<Client>> GetAsync(int countSkip, int countTake, CancellationToken cancellationToken) =>
+    public Task<List<Client>> GetRangeAsync(int countSkip, int countTake, CancellationToken cancellationToken) =>
         teledokDbContext.Clients
             .Skip(countSkip)
             .Take(countTake)
@@ -69,9 +69,9 @@ public class RepositoryClient(IRepositoryFounder repositoryFounder, TeledokDbCon
 
         try
         {
-            var client = await GetClientByInnAsync(updateClientCommand.INN, cancellationToken);
+            var client = await GetByInnAsync(updateClientCommand.INN, cancellationToken);
 
-            var founders = await repositoryFounder.GetByInnAsync(updateClientCommand.INNFounders, cancellationToken);
+            var founders = await repositoryFounder.GetFoundersByListInnAsync(updateClientCommand.INNFounders, cancellationToken);
 
             client.INN = updateClientCommand.INN;
             client.TitleCompany = updateClientCommand.TitleCompany;
@@ -83,7 +83,7 @@ public class RepositoryClient(IRepositoryFounder repositoryFounder, TeledokDbCon
         }
         catch (DbUpdateConcurrencyException)
         {
-            var isClientExistsAsync = await IsClientExistsAsync(updateClientCommand.INN, cancellationToken);
+            var isClientExistsAsync = await IsExistsAsync(updateClientCommand.INN, cancellationToken);
 
             if (!isClientExistsAsync)
             {
@@ -98,10 +98,10 @@ public class RepositoryClient(IRepositoryFounder repositoryFounder, TeledokDbCon
         }
     }
 
-    public async Task<bool> IsClientExistsAsync(string iNN, CancellationToken cancellationToken) =>
+    public async Task<bool> IsExistsAsync(string iNN, CancellationToken cancellationToken) =>
          await teledokDbContext.Clients.AnyAsync(client => client.INN == iNN, cancellationToken);
 
-    public async Task<Client> GetClientByInnAsync(string iNN, CancellationToken cancellationToken) =>
+    public async Task<Client> GetByInnAsync(string iNN, CancellationToken cancellationToken) =>
         await teledokDbContext.Clients.SingleOrDefaultAsync(
             client => client.INN == iNN, cancellationToken) ??
         throw new NotFoundException(nameof(Client), iNN);
